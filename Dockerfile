@@ -8,7 +8,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY service/ ./service/
 
 RUN adduser --disabled-password --gecos "" theia \
-    && chown -R theia:theia /app
+    && chown -R theia:theia /app \
+    && chgrp -R 0 /app \
+    && chmod -R g=u /app
 
 USER theia
 
