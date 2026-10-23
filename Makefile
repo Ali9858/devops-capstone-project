@@ -46,13 +46,12 @@ install: ## Install Python dependencies
 
 lint: ## Run the linter
 	$(info Running linting...)
-	flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-	flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
+	flake8 service tests
 
 .PHONY: tests
 tests: ## Run the unit tests
 	$(info Running tests...)
-	nosetests -vv --with-spec --spec-color --with-coverage --cover-package=service
+	pytest -v
 
 run: ## Run the service
 	$(info Starting service...)

@@ -94,6 +94,38 @@ The Account model contains the following fields:
 
 Complete this microservice by implementing REST API's for `READ`, `UPDATE`, `DELETE`, and `LIST` while maintaining **95%** code coverage. In true **Test Driven Development** fashion, first write tests for the code you "wish you had", and then write the code to make them pass.
 
+## Completed Account API
+
+The service implements `POST /accounts`, `GET /accounts`,
+`GET /accounts/<id>`, `PUT /accounts/<id>`, `DELETE /accounts/<id>`, and
+`GET /health`. It uses the starter's `service/` package, SQLAlchemy model,
+error handlers, and configuration. SQLite is the local default; set
+`DATABASE_URI` to a PostgreSQL URL for the course deployment environment.
+
+Create and activate a Python 3.9 virtual environment, then install dependencies:
+
+```bash
+python3.9 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Run lint and the pytest coverage suite:
+
+```bash
+flake8 service tests
+pytest
+```
+
+The API runs on port 8000 locally with `flask --app service run --port 8000`.
+Build and run the container with:
+
+```bash
+docker build -t account-service .
+docker run --rm -p 8000:8000 account-service
+```
+
 ## Local Kubernetes Development
 
 This repo can also be used for local Kubernetes development. It is not advised that you run these commands in the Cloud IDE environment. The purpose of these commands are to simulate the Cloud IDE environment locally on your computer. 

@@ -13,6 +13,17 @@ from service.common import log_handlers
 app = Flask(__name__)
 app.config.from_object(config)
 
+
+@app.after_request
+def set_security_headers(response):
+    """Set baseline browser security headers on every response."""
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    response.headers.setdefault("Content-Security-Policy", "default-src 'self'")
+    return response
+
+
 # Import the routes After the Flask app is created
 # pylint: disable=wrong-import-position, cyclic-import, wrong-import-order
 from service import routes, models  # noqa: F401 E402

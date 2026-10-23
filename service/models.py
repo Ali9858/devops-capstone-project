@@ -59,7 +59,10 @@ class PersistentBase:
         logger.info("Initializing database")
         cls.app = app
         # This is where we initialize SQLAlchemy from the Flask app
-        db.init_app(app)
+        # The service initializes its database on import. Test suites also call
+        # init_db(), so avoid registering the SQLAlchemy extension twice.
+        if "sqlalchemy" not in app.extensions:
+            db.init_app(app)
         app.app_context().push()
         db.create_all()  # make our sqlalchemy tables
 
@@ -67,13 +70,13 @@ class PersistentBase:
     def all(cls):
         """Returns all of the records in the database"""
         logger.info("Processing all records")
-        return cls.query.all()
+        return cls.query.order_by(cls.id).all()
 
     @classmethod
     def find(cls, by_id):
         """Finds a record by it's ID"""
         logger.info("Processing lookup for id %s ...", by_id)
-        return cls.query.get(by_id)
+        return db.session.get(cls, by_id)
 
 
 ######################################################################
@@ -92,7 +95,7 @@ class Account(db.Model, PersistentBase):
     email = db.Column(db.String(64))
     address = db.Column(db.String(256))
     phone_number = db.Column(db.String(32), nullable=True)  # phone number is optional
-    date_joined = db.Column(db.Date(), nullable=False, default=date.today())
+    date_joined = db.Column(db.Date(), nullable=False, default=date.today)
 
     def __repr__(self):
         return f"<Account {self.name} id=[{self.id}]>"
@@ -115,22 +118,27 @@ class Account(db.Model, PersistentBase):
         Args:
             data (dict): A dictionary containing the resource data
         """
+        if not isinstance(data, dict):
+            raise DataValidationError("Invalid Account: request body must be an object")
         try:
             self.name = data["name"]
             self.email = data["email"]
             self.address = data["address"]
             self.phone_number = data.get("phone_number")
             date_joined = data.get("date_joined")
-            if date_joined:
-                self.date_joined = date.fromisoformat(date_joined)
-            else:
-                self.date_joined = date.today()
+            self.date_joined = (
+                date.fromisoformat(date_joined) if date_joined else date.today()
+            )
         except KeyError as error:
-            raise DataValidationError("Invalid Account: missing " + error.args[0]) from error
+            message = "Invalid Account: missing " + error.args[0]
+            raise DataValidationError(message) from error
         except TypeError as error:
             raise DataValidationError(
-                "Invalid Account: body of request contained "
-                "bad or no data - " + error.args[0]
+                "Invalid Account: body of request contained bad or no data"
+            ) from error
+        except ValueError as error:
+            raise DataValidationError(
+                "Invalid Account: date_joined must use YYYY-MM-DD"
             ) from error
         return self
 
