@@ -1,12 +1,17 @@
 FROM python:3.9-slim
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
-
 WORKDIR /app
-COPY requirements.txt ./requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-COPY service ./service
 
-EXPOSE 8000
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "service:app"]
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY service/ ./service/
+
+RUN adduser --disabled-password --gecos "" theia \
+    && chown -R theia:theia /app
+
+USER theia
+
+EXPOSE 8080
+
+CMD ["gunicorn", "--bind=0.0.0.0:8080", "--log-level=info", "service:app"]
