@@ -1,4 +1,18 @@
-# DevOps Capstone Template
+devops-capstone-project
+Customer Accounts Microservice
+
+This project is part of the DevOps Capstone. The goal is to develop a RESTful Flask microservice for managing customer accounts in an e-commerce application.
+
+The service supports creating, reading, updating, deleting, and listing customer accounts containing basic customer information such as names and addresses.
+
+The project applies Agile planning, GitHub Projects, test-driven development (TDD), automated testing, code coverage, continuous integration with GitHub Actions, Docker containerization, and Kubernetes deployment.
+
+Project Goals
+Implement REST API endpoints for customer account management.
+Write automated tests and maintain at least 95% code coverage.
+Apply secure coding practices.
+Build and deploy a Docker container.
+Automate testing and deployment using CI/CD practices.# DevOps Capstone Template
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.9](https://img.shields.io/badge/Python-3.9-green.svg)](https://shields.io/)
