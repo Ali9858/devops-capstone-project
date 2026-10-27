@@ -24,6 +24,8 @@ HTTPS_ENVIRON = {'wsgi.url_scheme': 'https'}
 ######################################################################
 #  T E S T   C A S E S
 ######################################################################
+
+
 class TestAccountService(TestCase):
     """Account Service Tests"""
 
@@ -123,7 +125,10 @@ class TestAccountService(TestCase):
             json=account.serialize(),
             content_type="test/html"
         )
-        self.assertEqual(response.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_415_UNSUPPORTED_MEDIA_TYPE
+        )
 
     # ADD YOUR TEST CASES HERE ...
         # LIST ACCOUNTS
