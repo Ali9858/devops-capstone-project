@@ -1,148 +1,189 @@
-devops-capstone-project
+DevOps Capstone Project
 ![Build Status](https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)
 [![Build Status](https://github.com/YOUR_USERNAME/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)](https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml)
 
-This project is part of the DevOps Capstone. The goal is to develop a RESTful Flask microservice for managing customer accounts in an e-commerce application.
 
-The service supports creating, reading, updating, deleting, and listing customer accounts containing basic customer information such as names and addresses.
+This project is part of the IBM DevOps and Software Engineering Professional Certificate. It implements a RESTful Flask microservice for managing customer accounts in an e-commerce application.
 
-The project applies Agile planning, GitHub Projects, test-driven development (TDD), automated testing, code coverage, continuous integration with GitHub Actions, Docker containerization, and Kubernetes deployment.
+Project Overview
+
+The DevOps Capstone Project demonstrates Agile planning, Test-Driven Development (TDD), automated testing, code coverage, continuous integration, Docker containerization, and Kubernetes deployment.
+
+The microservice provides REST API endpoints for creating, reading, updating, deleting, and listing customer accounts.
 
 Project Goals
 Implement REST API endpoints for customer account management.
-Write automated tests and maintain at least 95% code coverage.
-Apply secure coding practices.
-Build and deploy a Docker container.
-Automate testing and deployment using CI/CD practices.# DevOps Capstone Template
+Develop automated unit and integration tests using nosetests.
+Achieve at least 95% code coverage.
+Apply secure coding practices, including CORS policies and security headers.
+Build and run the application using Docker.
+Automate testing and integrate code changes using GitHub Actions.
+Support Kubernetes-based development and deployment.
+Technology Stack
+Language: Python 3.9
+Web framework: Flask
+Database: PostgreSQL
+ORM: Flask-SQLAlchemy and SQLAlchemy
+Testing: Nose, Coverage, and Factory Boy
+Code quality: Flake8, Pylint, and Black
+CI/CD: GitHub Actions
+Containerization: Docker
+Orchestration: Kubernetes and K3D
+Pipeline tooling: Tekton
+REST API Features
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Python 3.9](https://img.shields.io/badge/Python-3.9-green.svg)](https://shields.io/)
+The service supports the following account management operations:
 
-This repository contains the starter code for the project in [**IBM-CD0285EN-SkillsNetwork DevOps Capstone Project**](https://www.coursera.org/learn/devops-capstone-project?specialization=devops-and-software-engineering) which is part of the [**IBM DevOps and Software Engineering Professional Certificate**](https://www.coursera.org/professional-certificates/devops-and-software-engineering)
+Operation	HTTP method	Description
+Create account	POST	Create a customer account
+Read account	GET	Retrieve an account by ID
+List accounts	GET	Retrieve all customer accounts
+Update account	PUT	Update an existing account
+Delete account	DELETE	Delete an account by ID
+Health check	GET	Check service health
 
-## Usage
+The API includes request validation, appropriate HTTP status codes, CORS support, and security headers.
 
-You should use this template to start your DevOps Capstone project. It contains all of the code that you will need to get started.
+Account Data Model
 
-Do Not fork this code! It is meant to be used by pressing the  <span style=color:white;background:green>**Use this Template**</span> button in GitHub. This will copy the code to your own repository with no connection back to the original repository like a fork would. This is what you want.
+Each account contains the following fields:
 
-## Development Environment
+Field	Type	Required
+id	Integer	Yes
+name	String (64 characters)	Yes
+email	String (64 characters)	Yes
+address	String (256 characters)	Yes
+phone_number	String (32 characters)	No
+date_joined	Date	Yes
+Project Structure
+text
+devops-capstone-project/
+├── service/
+│   ├── common/
+│   │   ├── cli_commands.py
+│   │   ├── error_handlers.py
+│   │   ├── log_handlers.py
+│   │   └── status.py
+│   ├── __init__.py
+│   ├── config.py
+│   ├── models.py
+│   └── routes.py
+├── tests/
+│   ├── factories.py
+│   ├── test_cli_commands.py
+│   ├── test_models.py
+│   └── test_routes.py
+├── .github/
+│   └── workflows/
+├── requirements.txt
+├── setup.cfg
+├── Makefile
+└── README.md
 
-These labs are designed to be executed in the IBM Developer Skills Network Cloud IDE with OpenShift. Please use the links provided in the Coursera Capstone project to access the lab environment.
+Development Environment Setup
 
-Once you are in the lab environment, you can initialize it with `bin/setup.sh` by sourcing it. (*Note: DO NOT run this program as a bash script. It sets environment variable and so must be sourced*):
+This project was created from the IBM Skills Network DevOps Capstone template.
 
-```bash
+1. Set up the environment
+
+In the IBM Skills Network Cloud IDE, run:
+
+bash
 source bin/setup.sh
-```
 
-This will install Python 3.9, make it the default, modify the bash prompt, create a Python virtual environment and activate it.
 
-After sourcing it you prompt should look like this:
+This initializes the Python environment and activates the virtual environment.
 
-```bash
-(venv) theia:project$
-```
-
-## Useful commands
-
-Under normal circumstances you should not have to run these commands. They are performed automatically at setup but may be useful when things go wrong:
-
-### Activate the Python 3.9 virtual environment
-
-You can activate the Python 3.9 environment with:
-
-```bash
-source ~/venv/bin/activate
-```
-
-### Installing Python dependencies
-
-These dependencies are installed as part of the setup process but should you need to install them again, first make sure that the Python 3.9 virtual environment is activated and then use the `make install` command:
-
-```bash
+2. Install dependencies
+bash
 make install
-```
 
-### Starting the Postgres Docker container
-
-The labs use Postgres running in a Docker container. If for some reason the service is not available you can start it with:
-
-```bash
+3. Start PostgreSQL
+bash
 make db
-```
 
-You can use the `docker ps` command to make sure that postgres is up and running.
 
-## Project layout
+Verify that the PostgreSQL container is running:
 
-The code for the microservice is contained in the `service` package. All of the test are in the `tests` folder. The code follows the **Model-View-Controller** pattern with all of the database code and business logic in the model (`models.py`), and all of the RESTful routing on the controller (`routes.py`).
+bash
+docker ps
 
-```text
-├── service         <- microservice package
-│   ├── common/     <- common log and error handlers
-│   ├── config.py   <- Flask configuration object
-│   ├── models.py   <- code for the persistent model
-│   └── routes.py   <- code for the REST API routes
-├── setup.cfg       <- tools setup config
-└── tests                       <- folder for all of the tests
-    ├── factories.py            <- test factories
-    ├── test_cli_commands.py    <- CLI tests
-    ├── test_models.py          <- model unit tests
-    └── test_routes.py          <- route unit tests
-```
+4. Run the tests
 
-## Data Model
+With the required dependencies and database configured, execute:
 
-The Account model contains the following fields:
+bash
+nosetests -v --with-spec --spec-color --with-coverage --cover-package=service
 
-| Name | Type | Optional |
-|------|------|----------|
-| id | Integer| False |
-| name | String(64) | False |
-| email | String(64) | False |
-| address | String(256) | False |
-| phone_number | String(32) | True |
-| date_joined | Date | False |
 
-## Your Task
+Run the critical Flake8 checks with:
 
-Complete this microservice by implementing REST API's for `READ`, `UPDATE`, `DELETE`, and `LIST` while maintaining **95%** code coverage. In true **Test Driven Development** fashion, first write tests for the code you "wish you had", and then write the code to make them pass.
+bash
+flake8 service --count --select=E9,F63,F7,F82 --show-source --statistics
 
-## Local Kubernetes Development
+Testing and Code Coverage
 
-This repo can also be used for local Kubernetes development. It is not advised that you run these commands in the Cloud IDE environment. The purpose of these commands are to simulate the Cloud IDE environment locally on your computer. 
+Automated tests validate account model operations, API routes, error handling, health checks, CORS policies, and security headers.
 
-At a minimum, you will need [Docker Desktop](https://www.docker.com/products/docker-desktop) installed on your computer. For the full development environment, you will also need [Visual Studio Code](https://code.visualstudio.com) with the [Remote Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension from the Visual Studio Marketplace. All of these can be installed manually by clicking on the links above or you can use a package manager like **Homebrew** on Mac of **Chocolatey** on Windows.
+The latest recorded GitHub Actions build completed successfully:
 
-Please only use these commands for working stand-alone on your own computer with the VSCode Remote Container environment provided.
+Test results: 27 tests passed.
+Code coverage: 91%.
+Critical Flake8 errors: 0.
+Build status: Successful.
 
-1. Bring up a local K3D Kubernetes cluster
+The project target is at least 95% code coverage. Additional tests are needed to reach this target.
 
-    ```bash
-    $ make cluster
-    ```
+Continuous Integration
 
-2. Install Tekton
+GitHub Actions automates dependency installation, code checks, and testing. The build status badge at the top of this README links to the workflow status for this repository.
 
-    ```bash
-    $ make tekton
-    ```
+Workflow badge URL:
 
-3. Install the ClusterTasks that the Cloud IDE has
+text
+https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg
 
-    ```bash
-    $ make clustertasks
-    ```
 
-You can now perform Tekton development locally, just like in the Cloud IDE lab environment.
+Make sure ci-build.yaml matches the actual workflow filename in .github/workflows/.
 
-## Author
+Docker and Kubernetes
 
-[John Rofrano](https://www.coursera.org/instructor/johnrofrano), Senior Technical Staff Member, DevOps Champion, @ IBM Research, and Instructor @ Coursera
+The project supports local container and Kubernetes development.
 
-## License
+The following Makefile commands are available in the supported local development environment:
 
-Licensed under the Apache License. See [LICENSE](LICENSE)
+bash
+make cluster
+make tekton
+make clustertasks
 
-## <h3 align="center"> © IBM Corporation 2022. All rights reserved. <h3/>
+
+These commands create a local K3D Kubernetes cluster, install Tekton, and install the required ClusterTasks.
+
+Note: Local Kubernetes development requires Docker Desktop and the configured development environment. These commands are intended for standalone local development, not necessarily for the IBM Cloud IDE.
+
+Security
+
+The project incorporates security-related practices, including:
+
+CORS configuration.
+HTTP security headers.
+Input and request validation.
+Appropriate API error handling.
+Database-backed account persistence.
+
+Production deployments should also use secure database credentials, environment-based configuration, and appropriate authentication and authorization controls.
+
+License
+
+This project uses the Apache License. See the LICENSE file for details.
+
+Author and Attribution
+
+Based on the IBM Skills Network DevOps Capstone Project template, part of the IBM DevOps and Software Engineering Professional Certificate.
+
+Original project author: John Rofrano, IBM Research.
+
+Repository: Ali9858/devops-capstone-project
+
+README: View README.md
