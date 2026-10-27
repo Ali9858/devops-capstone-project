@@ -3,7 +3,7 @@ DevOps Capstone Project
 
 30 Days DevOps Challenge - NBA Data Lake
 Day 3: Building a building a Sports Data Lake leveraging Azure blob storage, and Synapse Analytics
-!DevOps Capstone Project Architecture
+[!DevOps Capstone Project Architecture](https://github.com/Ali9858/devops-capstone-project/blob/main/DevOps_Capstone_Project.drawio.png)
 
 Project Structure
 
