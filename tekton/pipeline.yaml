@@ -35,6 +35,7 @@ spec:
           workspace: pipeline-workspace
       taskRef:
         name: git-clone
+        kind: ClusterTask
       params:
         - name: url
           value: $(params.repo-url)
