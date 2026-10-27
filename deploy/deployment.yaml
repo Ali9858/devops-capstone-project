@@ -16,7 +16,7 @@ spec:
         app: accounts
     spec:
       containers:
-        - image: us.icr.io/sn-labs-alibekdari/accounts:1
+        - image: IMAGE_NAME_HERE
           name: accounts
           ports:
             - containerPort: 8080
@@ -38,3 +38,17 @@ spec:
                 secretKeyRef:
                   name: postgresql
                   key: database-user
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: accounts
+  name: accounts
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: accounts
