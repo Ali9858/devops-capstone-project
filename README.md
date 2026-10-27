@@ -1,5 +1,5 @@
 DevOps Capstone Project
-[![Build Status](https://github.com/YOUR_USERNAME/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)](https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml)
+[![Build Status](https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)](https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml)
 
 
 This project is part of the IBM DevOps and Software Engineering Professional Certificate. It implements a RESTful Flask microservice for managing customer accounts in an e-commerce application.
