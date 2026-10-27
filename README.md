@@ -1,5 +1,5 @@
 devops-capstone-project
-Customer Accounts Microservice
+![Build Status](https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)
 
 This project is part of the DevOps Capstone. The goal is to develop a RESTful Flask microservice for managing customer accounts in an e-commerce application.
 
