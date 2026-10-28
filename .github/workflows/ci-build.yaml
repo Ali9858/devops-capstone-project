@@ -31,9 +31,8 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-
     env:
-      DATABASE_URI: postgresql://postgres:${{ secrets.POSTGRES_PASSWORD }}@postgres:5432/testdb
+      DATABASE_URI: postgresql://postgres:testpassword@postgres:5432/testdb
       PYTHONUNBUFFERED: "1"
 
     steps:
@@ -43,9 +42,7 @@ jobs:
       - name: Install system dependencies
         run: |
           apt-get update
-          apt-get install -y --no-install-recommends \
-            gcc \
-            libpq-dev
+          apt-get install -y --no-install-recommends gcc libpq-dev
           rm -rf /var/lib/apt/lists/*
 
       - name: Upgrade pip
@@ -55,7 +52,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
-          pip install flake8 nose
+          pip install flake8 nose coverage
 
       - name: Check code with flake8
         run: |
@@ -68,11 +65,33 @@ jobs:
             --max-line-length=127 \
             --statistics
 
-      - name: Run unit tests with Nose
+      - name: Verify database connection
         run: |
-          nosetests --with-coverage
+          python - <<'PY'
+          import os
+          import time
+          from sqlalchemy import create_engine, text
+
+          database_uri = os.environ["DATABASE_URI"]
+          engine = create_engine(database_uri)
+
+          for attempt in range(10):
+              try:
+                  with engine.connect() as connection:
+                      connection.execute(text("SELECT 1"))
+                  print("PostgreSQL connection successful.")
+                  break
+              except Exception:
+                  if attempt == 9:
+                      raise
+                  print("Waiting for PostgreSQL...")
+                  time.sleep(3)
+          PY
+
+      - name: Run unit tests with Nose
+        run: nosetests --with-coverage
         env:
-          DATABASE_URI: ${{ env.DATABASE_URI }}
+          DATABASE_URI: postgresql://postgres:testpassword@postgres:5432/testdb
 
   deploy:
     name: Deploy Application
@@ -86,8 +105,5 @@ jobs:
 
       - name: Deploy application
         run: |
-          echo "Build and tests passed."
-          echo "Configure your actual deployment commands here."
-          # Example:
-          # docker build -t your-image:latest .
-          # docker push your-registry/your-image:latest
+          echo "Lint and unit tests passed."
+          echo "Add your actual deployment commands here."
