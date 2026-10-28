@@ -1,6 +1,7 @@
 === Accounts Docker Image ===
-Name: 
-Tag: 
-Image ID: sha256:aeb1d704e0f72e3b121c19de9fdf455219031a88c438a850f7c7a0984c78e2e6
-Created Time: 2026-10-27T13:52:24Z
+Name: accounts
+Tag: 1
+Изображение ID: sha256:aeb1d704e0f72e3b121c19de9fdf455219031a88c438a850f7c7a0984c78e2e6
+Создано Time: 2026-10-27T13:52:24Z
 Size: 73158360 bytes
+
