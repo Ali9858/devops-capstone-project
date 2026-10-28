@@ -1,9 +1,6 @@
 DevOps Capstone Project
 [![Build Status](https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)](https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml)
 
-![Uploading image.png…]()
-
-
 The microservice provides REST API endpoints for creating, reading, updating, deleting, and listing customer accounts.
 
 Project Goals
