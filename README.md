@@ -1,6 +1,6 @@
 devops-capstone-project
 
-![Build Status](https://github.com/silmacil/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)
+[![Build Status](https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)](https://github.com/Ali9858/devops-capstone-project/actions/workflows/ci-build.yaml)
 
 # DevOps Capstone Template
 
