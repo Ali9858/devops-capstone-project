@@ -1,0 +1,39 @@
+(venv) theia:devops-capstone-project$ curl -i -X GET http://127.0.0.1:5000/accounts/1
+
+HTTP/1.1 200 OK
+
+Server: gunicorn
+
+Date: Tue, 27 Oct 2026 14:34:29 GMT
+
+Connection: close
+
+Content-Type: application/json
+
+Content-Length: 253
+
+Расположение: https://127.0.0.1:5000/accounts/1
+
+Access-Control-Allow-Origin: *
+
+Permissions-Policy: browsing-topics=()
+
+X-Frame-Options: SAMEORIGIN
+
+X-Content-Type-Options: nosniff
+
+Content-Security-Policy: default-src 'self'; object-src 'none'
+
+Referrer-Policy: strict-origin-when-cross-origin
+
+{"address":"123 Main St.","data_joined":"2026-10-27","email":"john@doe.com","name":"John Doe","phone_number":"555-1212"}
+
+<!doctype html>
+
+<html lang=en>
+
+<title>Redirecting...</title>
+
+<h1>Redirecting...</h1>
+
+<p>You should be redirected automatically to the target URL-адрес: <a href="https://127.0.0.1:5000/accounts/1">https://127.0.0.1:5000/accounts/1</a>. If not, click the link.
